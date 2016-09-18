@@ -1,0 +1,17 @@
+import Sims.*
+
+test "El primer sim entra en relacion"
+{
+	var sim1 = new SimBuenazo()
+	var sim2 = new SimBuenazo()
+	sim1.iniciarRelacion(sim2)
+	assert.that(sim1.estaEnPareja() && (sim1.mostrarAmigos() == sim2.mostrarAmigos()))
+}
+
+test "El segundo sim entra en relacion"
+{
+	var sim1 = new SimBuenazo()
+	var sim2 = new SimBuenazo()
+	sim1.iniciarRelacion(sim2)
+	assert.that(sim2.estaEnPareja() && (sim1.mostrarAmigos() == sim2.mostrarAmigos()))
+}

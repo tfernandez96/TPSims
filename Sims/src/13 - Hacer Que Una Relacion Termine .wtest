@@ -1,0 +1,19 @@
+import Sims.*
+
+test "Sim1 Termina Relacion"
+{
+	var sim1 = new SimBuenazo()
+	var sim2 = new SimBuenazo()
+	sim1.iniciarRelacion(sim2)
+	sim1.terminarRelacion()
+	assert.that(not(sim1.estaEnPareja()))
+}
+
+test "Sim2 Termina Relacion"
+{
+	var sim1 = new SimBuenazo()
+	var sim2 = new SimBuenazo()
+	sim1.iniciarRelacion(sim2)
+	sim1.terminarRelacion()
+	assert.that(not(sim2.estaEnPareja()))
+}

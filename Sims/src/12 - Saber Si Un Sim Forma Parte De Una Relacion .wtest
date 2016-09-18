@@ -1,0 +1,9 @@
+import Sims.*
+
+test "Saber Si Un Sim Forma Parte De Una Relacion"
+{
+	var sim1 = new SimBuenazo()
+	var sim2 = new SimBuenazo()
+	sim1.iniciarRelacion(sim2)
+	assert.that(sim1.estaEnPareja())
+}

@@ -1,0 +1,49 @@
+import Sims.*
+
+object fixture
+{
+	method crearSim(cantidadAmigos, dinero, felicidadDeAmigos)
+	{
+		var sim = new SimInteresado()
+		sim.ganarDinero(dinero)
+		cantidadAmigos.times(sim.hacerAmigo(self.crearSim(0,0,felicidadDeAmigos)))
+		return sim
+	}
+	
+	method hacerseAmigoDeSims(sim, cantidadAmigos, amigos)
+	{
+		cantidadAmigos.times(sim.hacerAmigo(amigos))
+	}
+}
+
+test "Amigo Mas Valorado De Un Sim Interesado"
+{
+	var simInteresado = new SimInteresado()
+	var simAmigable = new SimBuenazo()
+	var simAmigosRicos = new SimInteresado()
+	fixture.hacerseAmigoDeSims(simAmigable, 100, fixture.crearSim(0,9000,0)) // tendria 90000 de valoracion
+	fixture.hacerseAmigoDeSims(simAmigosRicos, 2 , fixture.crearSim(0,400000,0)) // tendria 80000 de valoracion
+	simInteresado.hacerAmigo(simAmigable)
+	simInteresado.hacerAmigo(simAmigosRicos)
+	assert.that(simInteresado.simMasValorado() == simAmigable)
+}
+
+test "Amigo Mas Valorado De Un Sim Superficial"
+{
+	var simSuperficial = new SimSuperficial()
+	simSuperficial.hacerAmigo(fixture.crearSim(100,0,10))
+	simSuperficial.hacerAmigo(fixture.crearSim(8,0,100))
+	assert.that(simSuperficial.simMasValorado() == fixture.crearSim(100,0,10))
+}
+
+test "Amigo Mas Valorado De Un Sim Buenazo"
+{
+	var simBuenazo = new SimBuenazo()
+	assert.that(simBuenazo.simMasValorado() == null)
+}
+
+test "Amigo Mas Valorado De Un Sim Peleado Con La Vida"
+{
+	var simPeleado = new SimPeleado()
+	assert.that(simPeleado.simMasValorado() == null)
+}
